@@ -8,23 +8,39 @@
 
 </head>
 
+<h1>This is the BMI Calculator</h1>
 
 
 <body>
 
     <div>
-        <p>Please enter your name.</p>
-
+        <p>Please enter your weight (in lbs) & height (in inches).</p>
         <form class="pure-form" method="POST" action="/">
-            Name: <br>
-            <input type="text" name="username"><br>
+            Weight(lbs): <br>
+            <input type="text" name="userweight"><br>
+            Height(in):<br>
+            <input type="text" name="userheight"><br>
             <button type="submit" class="pure-button pure-button-primary" value="Submit">Submit</button>
         </form>
     </div>
+
+<br><br>
+
+<div>
+    <!--
+    {% if weight %}
+        <p>Your weight is {{ weight }}</p>
+    {% endif %}
+    {% if height %}
+        <p>Your height is {{ height }}</p>
+    {% endif %}
+    -->
+    {% if bmi %}
+        <h2>Your BMI is {{ bmi }}</h2>
+    {% endif %}
+</div>
+
 </body>
 
 
 <br><br>
-
-{{ name }}
-

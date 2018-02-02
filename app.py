@@ -3,21 +3,44 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-@app.route('/potato')
-def welcome():
-    return "This is my first Flask app! Yay!"
-
 @app.route('/', methods=['GET', 'POST'])
 def rootpage():
-    name = ''
-    if request.method == 'POST' and 'username' in request.form:
-        name = request.form.get('username')
-    return render_template("index.html", name = name)
+    weight = ''
+    height = ''
+    bmi = 0.0
+    if request.method == 'POST' and 'userweight' in request.form:
+        weight = request.form.get('userweight')
+        height = request.form.get('userheight')
+        print("Height:", height)
+        '''Check if height is a valid number (i.e. floating value)'''
+        if isfloat(height):
+            if isfloat(weight):
+                height = float(height) * float(height)
+                weight = float(weight) / float(height)
+                bmi = float(weight) * 703
+            else:
+                weight = "Not a valid weight value!!"
+                #bmi = str(bmi)
+                #bmi = "Cannot calculate BMI"
+        else:
+            height = "Not a valid height value!!"
+            #bmi = str(bmi)
+            #bmi = "Cannot calculate BMI"
 
-@app.route('/bob')
-def bobpage():
-    return "Yo Bob! What's happning man!"
+
+        print("Update height:", height)
+    return render_template("index.html", weight = weight, height = height, bmi = bmi)
+
+''' Function to detect if a string is a valid floating value'''
+def isfloat(value):
+    try:
+        float(value)
+        return True
+    except:
+        return False
+
 
 
 app.run()
+
 
